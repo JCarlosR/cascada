@@ -12,6 +12,7 @@ class CreateProcessTiGoalTable extends Migration
      */
     public function up()
     {
+
         Schema::create('cobit_process_ti_goal', function (Blueprint $table) {
             $table->increments('id');
 
@@ -23,8 +24,6 @@ class CreateProcessTiGoalTable extends Migration
 
             $table->timestamps();
         });
-
-
 
     }
 
