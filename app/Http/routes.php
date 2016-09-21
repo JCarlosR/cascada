@@ -3,7 +3,7 @@
 Route::auth();
 
 Route::get('/', 'HomeController@index');
-Route::get('/objetivos-empresa', 'HomeController@objectives');
-Route::get('/objetivos-cobit-corporativos', 'HomeController@corporate');
-Route::get('/objetivos-cobit-ti', 'HomeController@ti');
-Route::get('/procesos-cobit', 'HomeController@processes');
+Route::get('/uno', 'HomeController@objectives');
+Route::get('/dos', 'HomeController@corporate');
+Route::get('/tres', 'HomeController@ti');
+Route::get('/cuatro', 'HomeController@processes');

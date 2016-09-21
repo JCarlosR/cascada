@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Strategic Diagrams</title>
+    <title>Cascada de metas</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -24,7 +24,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/') }}">Strategic Diagrams</a>
+            <a class="navbar-brand" href="{{ url('/') }}">Cascada de metas</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
