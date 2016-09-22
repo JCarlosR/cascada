@@ -13,3 +13,11 @@ Route::get('/objectives', 'ObjectiveController@index');
 Route::post('/objectives', 'ObjectiveController@store');
 Route::delete('/objectives', 'ObjectiveController@destroy');
 Route::put('/objectives', 'ObjectiveController@update');
+Route::post('/objectives/aligned', 'ObjectiveController@align');
+
+// Corporate goals
+Route::get('/corporate/{d}', 'CorporateGoalController@byDimension');
+Route::get('/corporate/{d}/{o}', 'CorporateGoalController@byDimensionAndObjective');
+
+// Relationships
+Route::post('/align/objective/corporate', 'AlignmentController@objectiveWithCorporate');

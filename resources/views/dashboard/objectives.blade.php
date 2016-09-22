@@ -84,42 +84,6 @@
 @endsection
 
 @section('extra-content')
-    <div id="modalEditar" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Editar objetivo estratégico</h4>
-                </div>
-                <form action="{{ url('capa/modificar') }}" method="POST" id="formEditarCapa">
-                    <div class="modal-body">
-                        <template id="template-alerta">
-                            <div class="alert alert-danger fade in">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Hey!</strong> <span></span>
-                            </div>
-                        </template>
-                        <p>Ingrese una nueva descripción.</p>
-                        <div class="form-group">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="hidden" id="txtIdEditar" name="idCapa">
-                            <input type="text" class="form-control" id="txtCapaEditar" name="descripcion">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-ok"></span> Guardar cambios
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-
     <div class="row" style="margin-bottom: 15px">
         <div class="col-lg-12">
             <a href="{{ url('/dos') }}" class="btn btn-primary pull-right">

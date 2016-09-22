@@ -13,4 +13,8 @@ class CorporateGoal extends Model
         return $this->belongsToMany('App\TiGoal')->withTimestamps();;
     }
 
+    public function strategicObjectives()
+    {
+        return $this->belongsToMany('App\StrategicObjective', 'corporate_goal_strategic_objective', 'goal_id', 'objective_id');
+    }
 }

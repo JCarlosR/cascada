@@ -27,7 +27,7 @@
             <thead>
             <tr>
                 <th>N</th>
-                <th>Objetivos estratégicos</th>
+                <th>Objetivos estratégicos originales</th>
                 <th>Dimensión</th>
                 <th>Opciones</th>
             </tr>
@@ -39,7 +39,7 @@
                     <td>{{ $objectives[$i]->description }}</td>
                     <td>{{ $objectives[$i]->dimension_name }}</td>
                     <th>
-                        <button type="button" class="btn btn-primary btn-xs" data-action="align" data-toggle="modal" data-target="#modalAlign">
+                        <button type="button" class="btn btn-primary btn-xs" data-align="{{ $objectives[$i]->dimension }}" data-id="{{ $objectives[$i]->id }}">
                             <span class="glyphicon glyphicon-circle-arrow-up"></span> Alinear
                         </button>
                     </th>
@@ -52,7 +52,7 @@
 
 @section('extra-content')
     <div id="modalAlign" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
 
             <!-- Modal content-->
             <div class="modal-content">
@@ -60,26 +60,30 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Alinear con metas corporativas</h4>
                 </div>
-                <form action="{{ url('capa/modificar') }}" method="POST" id="formEditarCapa">
+                <form action="{{ url('objectives/aligned') }}" method="POST" id="formEditarCapa">
                     <div class="modal-body">
-                        <template id="template-alerta">
-                            <div class="alert alert-danger fade in">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Hey!</strong> <span></span>
-                            </div>
-                        </template>
-                        <p>Ingrese una nueva descripción.</p>
+                        <p>Metas corporativas COBIT que pertenecen a la misma dimensión.</p>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>N</th>
+                                <th>Metas corporativas</th>
+                                <th class="text-center">¿Se asocia?</th>
+                            </tr>
+                            </thead>
+                            <tbody id="corporate_list">
+                            </tbody>
+                        </table>
+
+                        {{ csrf_field() }}
+                        <input type="hidden" name="id" id="aligned_id">
                         <div class="form-group">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="hidden" id="txtIdEditar" name="idCapa">
-                            <input type="text" class="form-control" id="txtCapaEditar" name="descripcion">
+                            <label for="aligned_description">Si desea puede actualizar la redacción del objetivo presione ENTER</label>
+                            <input type="text" class="form-control" id="aligned_description" name="description">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-ok"></span> Guardar cambios
-                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
             </div>
@@ -94,4 +98,8 @@
             </a>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/corporate.js') }}"></script>
 @endsection

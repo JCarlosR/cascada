@@ -31,4 +31,10 @@ class StrategicObjective extends Model
         return $this->aligned ?: $this->description;
     }
 
+    // Many to many relationships
+    public function corporateGoals()
+    {
+        return $this->belongsToMany('App\CorporateGoal', 'corporate_goal_strategic_objective', 'objective_id', 'goal_id')
+            ->withTimestamps();
+    }
 }

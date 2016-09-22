@@ -13,7 +13,9 @@ class ObjectiveController extends Controller
 
     public function index()
     {
-        $objectives = StrategicObjective::where('user_id', Auth::user()->id)->get();
+        $objectives = StrategicObjective::where('user_id', Auth::user()->id)
+            ->orderBy('dimension')
+            ->get();
         return $objectives;
     }
 
@@ -77,4 +79,21 @@ class ObjectiveController extends Controller
         return $data;
     }
 
+    public function align(Request $request)
+    {
+        $this->validate($request, [
+            'description' => 'required|min:5|max:255'
+        ], [
+            'description.required' => 'Es necesario que ingrese una descripción.',
+            'description.min' => 'Ingrese al menos 5 caracteres como descripción.',
+            'description.max' => 'La descripción no debe exceder los 255 caracteres.'
+        ]);
+
+        $id = $request->get('id');
+        $objective = StrategicObjective::find($id);
+        $objective->aligned = $request->get('description');
+        $objective->save();
+
+        return back();
+    }
 }
