@@ -21,6 +21,8 @@ class CreateStrategicObjectivesTable extends Migration
             $table->string('description');
             $table->integer('dimension')->unsigned();
 
+            $table->string('aligned')->nullable();
+
             $table->timestamps();
         });
     }

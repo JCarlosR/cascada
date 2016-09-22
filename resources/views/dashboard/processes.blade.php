@@ -13,7 +13,7 @@
         <li class="active"><a href="{{ url('/cuatro') }}"><span class="glyphicon glyphicon-th"></span> Procesos</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ url('cerrar-sesion') }}"><span class="glyphicon glyphicon-off"></span> Cerrar sesión</a></li>
+        <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-off"></span> Cerrar sesión</a></li>
     </ul>
 @endsection
 

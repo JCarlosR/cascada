@@ -13,7 +13,7 @@
         <li><a href="{{ url('/cuatro') }}"><span class="glyphicon glyphicon-th"></span> Procesos</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ url('cerrar-sesion') }}"><span class="glyphicon glyphicon-off"></span> Cerrar sesión</a></li>
+        <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-off"></span> Cerrar sesión</a></li>
     </ul>
 @endsection
 
@@ -26,14 +26,18 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
+                <th>N</th>
                 <th>Objetivos estratégicos</th>
+                <th>Dimensión</th>
                 <th>Opciones</th>
             </tr>
             </thead>
             <tbody>
-            @for($i=0; $i<5; ++$i)
+            @for($i=0; $i<count($objectives); ++$i)
                 <tr>
-                    <td>Objetivo estratégico {{ $i }}</td>
+                    <td>{{ ($i+1) }}</td>
+                    <td>{{ $objectives[$i]->description }}</td>
+                    <td>{{ $objectives[$i]->dimension_name }}</td>
                     <th>
                         <button type="button" class="btn btn-primary btn-xs" data-action="align" data-toggle="modal" data-target="#modalAlign">
                             <span class="glyphicon glyphicon-circle-arrow-up"></span> Alinear

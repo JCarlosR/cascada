@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MappingCorporateAndTiGoalsTableSeeder::class);
         $this->call(ProcessesTableSeeder::class);
         $this->call(MappingProcessesAndTiGoalsTableSeeder::class);
+
+        // Demo data for the main user
+        $this->call(StrategicObjectivesTableSeeder::class);
     }
 }
