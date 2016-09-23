@@ -43,6 +43,8 @@ class HomeController extends Controller
 
     public function processes()
     {
-        return view('dashboard.processes');
+        $user = Auth::user();
+        $objectives = $user->objectives;
+        return view('dashboard.processes')->with(compact('objectives'));
     }
 }

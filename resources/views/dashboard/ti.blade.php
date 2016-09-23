@@ -35,7 +35,7 @@
             <tbody>
             @for($i=0; $i<count($objectives); ++$i)
                 <tr>
-                    <td>{{ $i }}</td>
+                    <td>{{ ($i+1) }}</td>
                     <td>{{ $objectives[$i]->aligned_description }}</td>
                     <td>{{ $objectives[$i]->dimension_name }}</td>
                     <th>
@@ -61,12 +61,6 @@
                     <h4 class="modal-title">Seleccione las metas TI de COBIT con las que se asocia su objetivo estratégico.</h4>
                 </div>
                 <div class="modal-body">
-                    <template id="template-alerta">
-                        <div class="alert alert-danger fade in">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            <strong>Hey!</strong> <span></span>
-                        </div>
-                    </template>
                     <div id="grouped_ti_goals">
                     </div>
                 </div>

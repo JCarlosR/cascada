@@ -35,7 +35,7 @@
             </thead>
             <tbody v-if="objectives.length">
                 <tr v-for="objective in objectives">
-                    <td>@{{ $index }}</td>
+                    <td>@{{ $index+1 }}</td>
                     <td>@{{ objective.description }}</td>
                     <td>@{{ objective.dimension_name }}</td>
                     <td>

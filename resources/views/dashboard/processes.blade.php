@@ -32,11 +32,11 @@
             </tr>
             </thead>
             <tbody>
-            @for($i=0; $i<5; ++$i)
+            @for($i=0; $i<count($objectives); ++$i)
                 <tr>
-                    <td>Objetivo estratégico {{ $i }}</td>
+                    <td>{{ $objectives[$i]->aligned_description }}</td>
                     <th>
-                        <button type="button" class="btn btn-primary btn-xs" data-action="align" data-toggle="modal" data-target="#modalProcesses">
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modalProcesses{{ $i }}">
                             <span class="glyphicon glyphicon-asterisk"></span> Ver procesos
                         </button>
                     </th>
@@ -48,41 +48,57 @@
 @endsection
 
 @section('extra-content')
-    <div id="modalProcesses" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
+    @for($i=0; $i<count($objectives); ++$i)
+    <div id="modalProcesses{{ $i }}" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Procesos COBIT</h4>
                 </div>
-                <form action="{{ url('capa/modificar') }}" method="POST" id="formEditarCapa">
-                    <div class="modal-body">
-                        <template id="template-alerta">
-                            <div class="alert alert-danger fade in">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Hey!</strong> <span></span>
-                            </div>
-                        </template>
-                        <p>Ingrese una nueva descripción.</p>
-                        <div class="form-group">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="hidden" id="txtIdEditar" name="idCapa">
-                            <input type="text" class="form-control" id="txtCapaEditar" name="descripcion">
+                <div class="modal-body">
+                    @if(count($objectives[$i]->corporateGoals) == 0)
+                        <div class="alert alert-danger fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Alerta!</strong>
+                            <ul>
+                                <li>El objetivo seleccionado no ha sido alineado a metas corporativas.</li>
+                                <li>Por favor verifique el paso 2.</li>
+                            </ul>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-ok"></span> Guardar cambios
-                        </button>
-                    </div>
-                </form>
+                    @else
+                        <p>Metas corporativas asociadas al objetivo alineado.</p>
+                    @endif
+                    @foreach($objectives[$i]->corporateObjectives as $corporateObjective)
+                        <p><strong>Meta corporativa {{ $corporateObjective->corporateGoal->id }}</strong>: {{ $corporateObjective->corporateGoal->description }}</p>
+                        <button data-toggle="collapse" data-target="#ti{{ $corporateObjective->id }}">Ver metas TI asociadas</button>
+                        <div id="ti{{ $corporateObjective->id }}" class="collapse">
+                            @foreach($corporateObjective->tiGoals as $tiGoal)
+                                <ul>
+                                    <li>
+                                        <strong>Meta TI {{ $tiGoal->id }} de COBIT:</strong>
+                                        <p>{{ $tiGoal->description }}</p>
+                                        <button data-toggle="collapse" data-target="#processes{{ $tiGoal->id }}">Ver procesos asociados</button>
+                                        <div id="processes{{ $tiGoal->id }}" class="collapse">
+                                            <ul>
+                                                @foreach($tiGoal->processes as $process)
+                                                    <li><strong>{{ $process->id }}:</strong> {{ $process->description }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
-
         </div>
     </div>
+    @endfor
 
     <div class="row" style="margin-bottom: 15px">
         <div class="col-lg-12">
