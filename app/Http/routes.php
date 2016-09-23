@@ -19,5 +19,9 @@ Route::post('/objectives/aligned', 'ObjectiveController@align');
 Route::get('/corporate/{d}', 'CorporateGoalController@byDimension');
 Route::get('/corporate/{d}/{o}', 'CorporateGoalController@byDimensionAndObjective');
 
+// Ti goals
+Route::get('/ti/{o}', 'TiGoalController@byStrategicObjective');
+
 // Relationships
 Route::post('/align/objective/corporate', 'AlignmentController@objectiveWithCorporate');
+Route::post('/align/objective-corporate/ti', 'AlignmentController@objectiveCorporateTi');

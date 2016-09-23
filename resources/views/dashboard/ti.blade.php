@@ -39,7 +39,7 @@
                     <td>{{ $objectives[$i]->aligned_description }}</td>
                     <td>{{ $objectives[$i]->dimension_name }}</td>
                     <th>
-                        <button type="button" class="btn btn-primary btn-xs" data-action="align" data-toggle="modal" data-target="#modalAlign">
+                        <button type="button" class="btn btn-primary btn-xs" data-align="{{ $objectives[$i]->id }}">
                             <span class="glyphicon glyphicon-circle-arrow-up"></span> Alinear
                         </button>
                     </th>
@@ -52,36 +52,27 @@
 
 @section('extra-content')
     <div id="modalAlign" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Alinear con metas TI</h4>
+                    <h4 class="modal-title">Seleccione las metas TI de COBIT con las que se asocia su objetivo estratégico.</h4>
                 </div>
-                <form action="{{ url('capa/modificar') }}" method="POST" id="formEditarCapa">
-                    <div class="modal-body">
-                        <template id="template-alerta">
-                            <div class="alert alert-danger fade in">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Hey!</strong> <span></span>
-                            </div>
-                        </template>
-                        <p>Ingrese una nueva descripción.</p>
-                        <div class="form-group">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="hidden" id="txtIdEditar" name="idCapa">
-                            <input type="text" class="form-control" id="txtCapaEditar" name="descripcion">
+                <div class="modal-body">
+                    <template id="template-alerta">
+                        <div class="alert alert-danger fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Hey!</strong> <span></span>
                         </div>
+                    </template>
+                    <div id="grouped_ti_goals">
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-ok"></span> Guardar cambios
-                        </button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
 
         </div>
@@ -94,4 +85,8 @@
             </a>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/ti.js') }}"></script>
 @endsection
