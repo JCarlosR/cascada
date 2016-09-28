@@ -26,6 +26,6 @@ class User extends Authenticatable
 
     public function objectives()
     {
-        return $this->hasMany('App\StrategicObjective');
+        return $this->hasMany('App\StrategicObjective')->orderBy('dimension');;
     }
 }

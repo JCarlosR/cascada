@@ -18,12 +18,31 @@ new Vue({
         addObjective: function () {
             var vue = this;
             this.newObjective._token = $('meta[name=csrf-token]').attr('content');
-            $.post('./objectives', this.newObjective, function (data) {
-                if (data.success) {
-                    vue.objectives.push(data.newObjective);
-                    vue.newObjective = {};
+
+            $.ajax({
+                url: './objectives',
+                type: 'POST',
+                data: this.newObjective,
+                dataType: 'json',
+                success: function(data) {
+                    if (data.success) {
+                        vue.objectives.push(data.newObjective);
+                        vue.newObjective = {
+                            'description': '',
+                            'dimension': ''
+                        };
+                    }
+                },
+                error: function(data) {
+                    var errors = $.parseJSON(data.responseText);
+                    console.log(errors);
+
+                    $.each(errors, function(index, value) {
+                        // alert(value);
+                        displayErrorAlert(value, 'app');
+                    });
                 }
-            }, 'json');
+            });
         },
         removeObjective: function (index) {
             var vue = this;

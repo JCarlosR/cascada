@@ -4,6 +4,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
 
+@section('styles')
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+@endsection
+
 @section('menu-options')
     <ul class="nav navbar-nav">
         <li><a href="{{ url('/') }}"><span class="glyphicon glyphicon-info-sign"></span> Datos de la empresa</a></li>
@@ -34,7 +42,7 @@
             </tr>
             </thead>
             <tbody v-if="objectives.length">
-                <tr v-for="objective in objectives">
+                <tr v-for="objective in objectives | orderBy 'dimension'" v-cloak>
                     <td>@{{ $index+1 }}</td>
                     <td>@{{ objective.description }}</td>
                     <td>@{{ objective.dimension_name }}</td>
@@ -95,5 +103,6 @@
 
 @section('scripts')
     <script src="{{ asset('js/vue.js') }}"></script>
+    <script src="{{ asset('js/errors.js') }}"></script>
     <script src="{{ asset('js/objectives.js') }}"></script>
 @endsection
